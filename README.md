@@ -4,7 +4,7 @@ Combining a secure and stable linux host system with the latest Foundry VTT dist
 ----
 
 ### Project Aims
-The project aim is a stable basic workflow to create reliable docker container for FoundryVTT on a secure Debian 10 (buster) based linux server. 
+The project aim is a stable basic workflow to create a reliable docker container for FoundryVTT on a secure Debian 10 (buster) based linux server. 
 
 ### Workflow objects
 | ID | Object | Description |
@@ -45,6 +45,7 @@ Please comment or send me a feedback via email.
 
 Use the files to test, run and improve your Foundry VTT instance for a better virtual tabletop experience.
 
+----
 
 ### foundry vtt wiki
 - If you are new to foundry's virtual multiplayer tabletop check: [Foundry Virtual Tabletop](https://foundryvtt.com/)
