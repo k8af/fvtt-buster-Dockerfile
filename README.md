@@ -1,19 +1,10 @@
 # Foundry VTT Docker container on Debian 10
+Combining a secure and stable linux host system with the latest Foundry VTT distribution.
 
-## Hoto build a Docker Setup for a Foundry's Virtual Table Top Server Distribution
+----
 
-### Docker Deployment on Debian 10 (buster)
-This Docker project will be deployt on linux debian 10 (buster)
-
-### Simple approach to create FoundryVTT docker files with a secure Debian 10 (buster) based linux server. 
-This project aims to automate a docker container deployment for a single Foundry VTT server.
-
-### Prerequisites
-You can use this files to test, run and improve your local debian linux host instance. All you need is
-- debian linux 10 (buster)
-- NodeJS 14.x or newer
-- Foundry VTT account with a purchased software license
-- the official [Foundry VTT](https://foundryvtt.com) distribution
+### Project Aims
+The project aim is a stable basic workflow to create reliable docker container for FoundryVTT on a secure Debian 10 (buster) based linux server. 
 
 ### Workflow objects
 | ID | Object | Description |
@@ -27,9 +18,33 @@ You can use this files to test, run and improve your local debian linux host ins
 | 6 | Testing Application | Get FVTT server instance up and running as Debian 10 (buster) Container |
 | 7 | Have fun with FVTT and friends | Invite friends and provide access keys to connect to your server.|
 
+----
+
+### Prerequisites
+All you need to start is:
+- debian linux 10 (buster) as docker container
+- NodeJS 14.x or newer on that debian system
+- Foundry VTT account with a purchased software license
+- the official [Foundry VTT](https://foundryvtt.com) distribution
+- Some TCP/IP networking and firewalling experience
+
+----
+
+
+### Container Setup
+
+#### Dockerfile for Installation
+Every Container installation starts with a setup. You can start with commands on your terminal or create a Dockerfile for it. I choose the comfortable way to create a Dockerfile, putting all stuff in it and fire it up to run the deployment automatically.
+
+#### Linux Debian 10 (buster)
+First of all ask yourself if you have enough linux practice experience to create Docker Container deployment for linux debian 10 (buster)
+
 ### Maintaining the project
 Feel free to download docker files and improve the container performance or implement new security features.
 Please comment or send me a feedback via email.
+
+Use the files to test, run and improve your Foundry VTT instance for a better virtual tabletop experience.
+
 
 ### foundry vtt wiki
 - If you are new to foundry's virtual multiplayer tabletop check: [Foundry Virtual Tabletop](https://foundryvtt.com/)
