@@ -13,8 +13,7 @@ Combining a secure and stable linux host system docker image with the latest Fou
 > #docker image ls (to list all images)
 > 
 6. Run docker to create and login to your new image based container on port 12345 with name "foundryvtt-server"
-> #docker run -d -p 12345:30000 --name foundryvtt-server localhost/fvtt-server
-
+> #docker run -d -p 12345:30000 --name foundryvtt-server localhost/fvtt-deb-vps
 ----
 
 ### Project Aims
