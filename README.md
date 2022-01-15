@@ -1,12 +1,24 @@
 # Foundry VTT Docker container on Debian 10
-Combining a secure and stable linux host system with the latest Foundry VTT distribution.
+Combining a secure and stable linux host system docker image with the latest Foundry VTT distribution.
+----
+
+## Howto use this files
+1. Login to your target host and install docker and docker-compose.
+2. Create your project directory
+3. Change dir to project directory and download or clone github repo files.
+4. Maybe change some system config details in your *Dockerfile* (Host ports 12345 i.e.)
+5. Use docker command to build your first image with optionally tag on your host locally.
+> #docker build -t localhost/fvtt-deb-vps
+> #docker image ls (to list all images)
+6. Run docker to create and login to your new image based container on port 12345 with name "foundryvtt-server"
+> #docker run -d -p 12345:30000 --name foundryvtt-server localhost/fvtt-server
 
 ----
 
 ### Project Aims
-The project aim is a stable basic workflow to create a reliable docker container for FoundryVTT on a secure Debian 10 (buster) based linux server. 
+The project aim is to provide a basic workflow for a reliable docker container to start FoundryVTT on Debian 10 (buster) based docker container. 
 
-### Workflow objects
+### Iterating workflow objects
 | ID | Object | Description |
 | - | - | - |
 | 0 | Git Repository | create repository on github |
@@ -22,8 +34,8 @@ The project aim is a stable basic workflow to create a reliable docker container
 
 ### Prerequisites
 All you need to start is:
-- debian linux 10 (buster) as docker container
-- NodeJS 14.x or newer on that debian system
+- debian linux 10 (buster) as basic docker image
+- NodeJS 14.x or newer for the docker image
 - Foundry VTT account with a purchased software license
 - the official [Foundry VTT](https://foundryvtt.com) distribution
 - Some TCP/IP networking and firewalling experience
@@ -41,12 +53,13 @@ First of all ask yourself if you have enough linux practice experience to create
 
 ### Maintaining the project
 Feel free to download docker files and improve the container performance or implement new security features.
-Please comment or send me a feedback via email.
+Please comment or send me a feedback via git email.
 
 Use the files to test, run and improve your Foundry VTT instance for a better virtual tabletop experience.
 
 ----
 
+## Sources
 ### foundry vtt wiki
 - If you are new to foundry's virtual multiplayer tabletop check: [Foundry Virtual Tabletop](https://foundryvtt.com/)
 - Here you can find more about the the latest [Foundry VTT Release](https://foundryvtt.com/releases/9.238)
