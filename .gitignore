@@ -1,3 +1,7 @@
+# Universal git ignoring files in project directories
+# use this as it is or change to your needs
+# have fun ...
+
 # Logs
 logs
 *.log
@@ -105,7 +109,6 @@ dist
 .tern-port
 
 # Folder view configuration files
-.DS_Store
 Desktop.ini
 
 # Thumbnail cache files
