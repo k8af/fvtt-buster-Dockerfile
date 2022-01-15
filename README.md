@@ -5,17 +5,25 @@ Combining a secure and stable linux host system docker image with the latest Fou
 ## Howto use this files
 1. Login to your target linux vps and become root
 2. install docker and docker-compose.
-3. Create your project directory
-4. Change to your project directory and download or clone github [repository files](https://github.com/k8af/fvtt-deb-vps).
-5. Change some system config details in your *Dockerfile* (Host ports 12345 i.e.)
-6. Use docker command to build your first image with optionally tag on your host locally.
+3. Create your project directory on the host machine (/opt/fvtt)
+> #mkdir /opt/fvtt
+> 
+5. Create your docker mount point as volume transfer directory as you wish (/opt/fvtt/xfer)
+> #mkdir /opt/fvtt/xfer
+> 
+7. Change to your project directory and download or clone github [repository files](https://github.com/k8af/fvtt-deb-vps).
+8. Change some system config details in your *Dockerfile* (Host port i.e.)
+9. Use docker command to build your first image with optionally tag on your host locally.
 > #docker build -t localhost/fvtt-deb-vps .
 
 7. Check new image
 > #docker image ls
 
 8. Run docker to create your new image based container at localhost listening on port 12345 with name "foundryvtt-server"
-> #docker run -d -p 12345:30000 --name foundryvtt-server localhost/fvtt-deb-vps
+> #docker run -d -p 12345:30000 \
+>       --volume=/opt/fvtt/xfer:/srv/foundry/xfer \
+>       --name foundryvtt-server \
+>       localhost/fvtt-deb-vps
 ----
 
 ### Project Aims
