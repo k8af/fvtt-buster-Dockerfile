@@ -6,10 +6,12 @@ Combining a secure and stable linux host system docker image with the latest Fou
 1. Login to your target host and install docker and docker-compose.
 2. Create your project directory
 3. Change dir to project directory and download or clone github repo files.
-4. Maybe change some system config details in your *Dockerfile* (Host ports 12345 i.e.)
+4. Change some system config details in your *Dockerfile* (Host ports 12345 i.e.)
 5. Use docker command to build your first image with optionally tag on your host locally.
 > #docker build -t localhost/fvtt-deb-vps
+> 
 > #docker image ls (to list all images)
+> 
 6. Run docker to create and login to your new image based container on port 12345 with name "foundryvtt-server"
 > #docker run -d -p 12345:30000 --name foundryvtt-server localhost/fvtt-server
 
