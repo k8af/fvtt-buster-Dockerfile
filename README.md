@@ -9,7 +9,7 @@ Combining a secure and stable linux host system docker image with the latest Fou
 4. Change to your project directory and download or clone github [repository files](https://github.com/k8af/fvtt-deb-vps).
 5. Change some system config details in your *Dockerfile* (Host ports 12345 i.e.)
 6. Use docker command to build your first image with optionally tag on your host locally.
-> #docker build -t localhost/fvtt-deb-vps
+> #docker build -t localhost/fvtt-deb-vps .
 
 7. Check new image
 > #docker image ls
