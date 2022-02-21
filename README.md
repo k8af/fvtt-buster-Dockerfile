@@ -3,7 +3,7 @@ Combining a secure and stable linux host system docker image with the latest Fou
 ----
 
 ### Project Aims
-The project aim is to provide a basic workflow for a reliable docker container to start FoundryVTT on Debian 10 (buster) based docker container. 
+The project aim is to provide a basic workflow for a reliable docker container to start FoundryVTT on Debian 10 (slim) docker container. 
 
 ### Iterating workflow objects
 | ID | Object | Description |
@@ -14,14 +14,17 @@ The project aim is to provide a basic workflow for a reliable docker container t
 | 3 | Dockerfile - NodeJs | evaluate methods to automate deployment of latest NodeJs version |
 | 4 | Dockerfile - FoundryVTT | prepare server environment of Foundry Virtual Tabletop server |
 | 5 | Testing Deployment | Get Foundry Virtual Tabletop license|
-| 6 | Testing Application | Get FVTT server instance up and running as Debian 10 (buster) Container |
+| 6 | Testing Application | Get FVTT server instance up and running as Debian 10 (slim) Container |
 | 7 | Have fun with FVTT and friends | Invite friends and provide access keys to connect to your server.|
+| 8 | SSL/TLS | Take a note to connect with TLS certificates using certbot |
 
 ----
 
 ### Prerequisites
 All you need to start is:
-- debian linux 10 (buster) as basic docker image
+- Dockerfile experience
+- debian linux experience
+- debian 10 (slim) for the docker image
 - NodeJS 14.x or newer for the docker image
 - Foundry VTT account with a purchased software license
 - the official [Foundry VTT](https://foundryvtt.com) distribution
@@ -29,12 +32,18 @@ All you need to start is:
 
 ----
 ## Roadmap for Preperations for hosting system
-* Login to your target linux vps and become root
+* Login to your target linux vps host and become root
 * Do some preperations
 * Install docker and docker-compose.
 * Create docker image
 * Run docker container
-* Login to your created container and start Foundry VTT
+* Start docker container
+* Login to your created container and start Foundry VTT as user foundry
+* Check some firewall rules
+
+---
+
+## Preperations for hosting system (vps)
 
 ### Adding repos to hosting server
 If you need more software on your hosting system, add some more sources to your /etc/apt/sources.list
@@ -101,11 +110,6 @@ sudo ufw enable
 #### Dockerfile for Installation
 Every Container installation starts with a setup. You can start with commands on your terminal or like me I've created a Dockerfile for it, putting all stuff in it and fire it up to run the deployment automatically.
 
-#### Monitoring Docker Container Status
-After you run the container you can have a look at the stats with the following command:
-> docker container stats
-> 
-
 #### Now let's create the docker image
 Create your image within the directory where the Dockerfile exists and send any docker output to default output and pipe it to file "build.log"
 It tooks several minutes to download all parts from internet.
@@ -113,7 +117,8 @@ It tooks several minutes to download all parts from internet.
 > 
 
 #### Run the first container
-If all is fine now, run an interactive container in detach mode, with hostname "fvtt" from the image we've created above
+Considering the docker volumes specification, we will share a directory on the hosting machine within our new container.
+If all is fine now, run an interactive container in detach mode, with exchange volumes and with hostname "fvtt" from the image we've created above
 > #docker run -it -d -h fvtt --volume=/opt/fvtt/xfer:/srv/foundry/xfer --publish 12345:30000/tcp --name foundryvtt-server fvtt-deb10-slim /bin/bash -l
 > 
 
@@ -121,13 +126,17 @@ If all is fine now, run an interactive container in detach mode, with hostname "
 > #docker container start foundryvtt-server
 > 
 
+#### Monitoring Docker Container Status
+After you run the container you can have a look at the stats with the following command:
+> docker container stats
+> 
+
 #### Connect with container as terminal session in a bash shell
-> #docker exec -it fvtt-slim /bin/bash
+> #docker exec -it foundryvtt-server /bin/bash
 > 
 
 
-### Login your container
-
+#### Change User
 Change to User foundry
 > #su - foundry
 > 
@@ -136,21 +145,34 @@ Change to home of user foundry
 > #cd /srv/foundry
 > 
 
-Foundry VTT Server is listening on Port 30000 (default), my container will redirect it to port 12345.
-Anyways 
+#### Start Foundry VTT 
 > #node /srv/foundry/fvtt/resources/app/main.js --dataPath=/srv/foundry/data 1>access.log 2>error.lo &
+> 
+
+#### Port Forwarding
+Foundry VTT Server is listening on Port 30000 (default), my container will redirect it to my hosting port 12345.
+At this point it depends on your firewall configurations to open your container port to public access.
+
+Take a minute to think about your port forwardings.
+
+´´´
+Foundry-VTT (30000) --> local vps host container (12345)
+local vps host container (12345) --> VPS Provider Firewall --> Public Access
+´´´
+
+#### SSL/TLS Security
+If you want to use tls security on your vps machine, I recommend to use [certbot](https://certbot.eff.org/instructions?ws=other&os=debianbuster).
+Follow the instructions to install and run certbot on your vps hosting machine.
 
 
-
-
-#### Linux Debian 10 (buster)
-First of all ask yourself if you have enough linux practice experience to create Docker Container deployment for linux debian 10 (buster)
+---
 
 ### Maintaining the project
-Feel free to download docker files and improve the container performance or implement new security features.
-Please comment or send me a feedback via git email.
-
+Feel free to download my docker file and improve the container performance or implement new security features.
 Use the files to test, run and improve your Foundry VTT instance for a better virtual tabletop experience.
+* Please comment or send me a feedback via git email.
+* next devop stage is to use ansible playbook
+
 
 ----
 
