@@ -1,5 +1,6 @@
 # Foundry VTT Docker container on Debian 10
-Combining a secure and stable linux host system docker image with the latest Foundry VTT distribution.
+Lets create a secure linux debian based docker container for a Foundry VTT environment.
+Foundry VTT is my favourite virtual tabletop system to play online with friends.
 ----
 
 ### Project Aims
@@ -16,7 +17,7 @@ The project aim is to provide a basic workflow for a reliable docker container t
 | 5 | Testing Deployment | Get Foundry Virtual Tabletop license|
 | 6 | Testing Application | Get FVTT server instance up and running as Debian 10 (slim) Container |
 | 7 | Have fun with FVTT and friends | Invite friends and provide access keys to connect to your server.|
-| 8 | SSL/TLS | Take a note to connect with TLS certificates using certbot |
+| 8 | SSL/TLS Security | Take a note to connect with TLS certificates using certbot |
 
 ----
 
@@ -97,8 +98,6 @@ sudo ufw enable
 ```
 ----
 
-
-
 ### Container Setup
 
 #### Download Dockerfile
@@ -141,7 +140,7 @@ Change to User foundry
 > #su - foundry
 > 
 
-Change to home of user foundry
+#### Change to home of user foundry
 > #cd /srv/foundry
 > 
 
