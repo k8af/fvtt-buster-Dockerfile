@@ -159,7 +159,6 @@ After you run the container you can have a look at the stats with the following 
 > #docker exec -it foundryvtt-server /bin/bash
 > 
 
-
 #### Change User
 Change to User foundry
 > #su - foundry
@@ -170,7 +169,7 @@ Change to User foundry
 > 
 
 #### Start Foundry VTT 
-> #node /srv/foundry/fvtt/resources/app/main.js --dataPath=/srv/foundry/data 1>access.log 2>error.lo &
+> #node /srv/foundry/fvtt/resources/app/main.js --dataPath=/srv/foundry/data 1>>access.log 2>>error.log &
 > 
 
 #### Port Forwarding
@@ -182,12 +181,12 @@ Take a minute to think about your port forwardings.
 ´´´
 Foundry-VTT (30000) --> local vps host container (12345)
 local vps host container (12345) --> VPS Provider Firewall --> Public Access
+
 ´´´
 
 #### SSL/TLS Security
 If you want to use tls security on your vps machine, I recommend to use [certbot](https://certbot.eff.org/instructions?ws=other&os=debianbuster).
-Follow the instructions to install and run certbot on your vps hosting machine.
-
+Follow the instructions to install and run certbot on your vps hosting machine without a webserver.
 
 ---
 
