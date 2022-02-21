@@ -1,12 +1,15 @@
 # Foundry VTT Docker container on Debian 10
-Lets create a secure linux debian based docker container for a Foundry VTT environment.
+## Intro - What we have here ? 
+We will build a secure linux debian based docker container for a Foundry VTT environment.
 Foundry VTT is my favourite virtual tabletop system to play online with friends.
+Debian is my favourite linux distribution, so I combined my favs to gain a service solution.
+
 ----
 
-### Project Aims
+## Project Aims
 The project aim is to provide a basic workflow for a reliable docker container to start FoundryVTT on Debian 10 (slim) docker container. 
 
-### Iterating workflow objects
+## Iterating workflow objects
 | ID | Object | Description |
 | - | - | - |
 | 0 | Git Repository | create repository on github |
@@ -21,7 +24,7 @@ The project aim is to provide a basic workflow for a reliable docker container t
 
 ----
 
-### Prerequisites
+## Prerequisites
 All you need to start is:
 - Dockerfile experience
 - debian linux experience
