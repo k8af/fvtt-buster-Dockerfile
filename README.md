@@ -1,5 +1,6 @@
 # Foundry VTT Docker container on Debian 10
-Combining a secure and stable linux host system docker image with the latest Foundry VTT distribution.
+Lets create a secure linux debian based docker container for a Foundry VTT environment.
+Foundry VTT is my favourite virtual tabletop system to play online with friends.
 ----
 
 ### Project Aims
