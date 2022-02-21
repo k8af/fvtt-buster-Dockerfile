@@ -28,31 +28,55 @@ All you need to start is:
 - Some TCP/IP networking and firewalling experience
 
 ----
-## Howto use this files
-1. Login to your target linux vps and become root
-2. install docker and docker-compose.
-3. Create your project directory on the host machine (/opt/fvtt)
+## Roadmap for Preperations for hosting system
+* Login to your target linux vps and become root
+* Do some preperations
+* Install docker and docker-compose.
+* Create docker image
+* Run docker container
+* Login to your created container and start Foundry VTT
+
+### Adding repos to hosting server
+If you need more software on your hosting system, add some more sources to your /etc/apt/sources.list
+
+> #echo 'deb http://httpredir.debian.org/debian buster main non-free contrib' >> /etc/apt/sources.list
+> 
+> #echo 'deb-src http://httpredir.debian.org/debian buster main non-free contrib' >> /etc/apt/sources.list
+> 
+> #echo 'deb http://security.debian.org/debian-security buster/updates main contrib non-free' >> /etc/apt/sources.list
+> 
+> #echo 'deb-src http://security.debian.org/debian-security buster/updates main contrib non-free' >> /etc/apt/sources.list
+> 
+
+### Install some tools
+Install some packages if you need more, add some more tools.
+> #apt install apt-transport-https ca-certificates curl software-properties-common
+> 
+> #apt update && apt upgrade
+> 
+> #apt install docker-ce docker-ce-cli apt-file
+> 
+> #apt install iproute2 inetutils-ping dns-utils iptables free man
+> 
+
+### Project directory
+Create your project directory on the host machine (/opt/fvtt)
 > #mkdir /opt/fvtt
 > 
-5. Create your docker mount point as volume transfer directory as you wish (/opt/fvtt/xfer)
+
+### Docker Volumes & file exchange
+Create your docker mount point as volume transfer directory as you wish (/opt/fvtt/xfer)
 > #mkdir /opt/fvtt/xfer
 > 
-7. Change to your project directory and download or clone github [repository files](https://github.com/k8af/fvtt-deb-vps).
-8. Change some system config details in your *Dockerfile* (Host port i.e.)
-9. Use docker command to build your first image with optionally tag on your host locally.
-> #docker build -t localhost/fvtt-deb-vps .
 
-7. Check new image
-> #docker image ls
+### Syncronize foundry vtt files to host machine
+I've downloaded fvtt files outside my linux host system and created an read only shared folder for my virtual machine.
+So actually my source folder is "/WinShared/Linux\ Server/FoundryVTT-9-2/" and my target /opt/fvtt/xfer.
+I've used rsync to syncronize as update while safing all origin permissions to my "/opt/fvtt/xfer" transfer directory on my host machine.
 
-8. Run docker to create your new image based container at localhost 
-- listening on port 12345 
-- with shared data volume directory "/srv/foundry/xfer"
-- with name "foundryvtt-server"
-```
-#docker run -d --env FOUNDRY_USERNAME='<your_username>' --env FOUNDRY_PASSWORD='<your_password>' --volume=/opt/fvtt/xfer:/srv/foundry/xfer --publish 12345:30000/tcp --name foundryvtt-server localhost/fvtt-deb-vps
- ```
- 
+> #rsync -h --progress --stats -r -tgo -p -l -D -S --update /WinShared/Linux\ Server/FoundryVTT-9-2/ /opt/fvtt/xfer ; chown -R foundry. /opt/fvtt/xfer/ ; find '/opt/fvtt/xfer/' -perm -2  -type f  -exec chmod o-w {} \; ;chmod 760 /opt/fvtt/xfer/ ; ls -rtla /opt/fvtt/xfer/
+
+
 ----
 ### Firewall Rules
 We use to open just that ports on our host machine if you need more you can change the commands below
@@ -68,8 +92,56 @@ sudo ufw enable
 
 ### Container Setup
 
+#### Download Dockerfile
+* Change to your project directory and download or clone from github [repository files](https://github.com/k8af/fvtt-buster-Dockerfile).
+* Change some system config details in your *Dockerfile* (Host port i.e.)
+* Docker container is listening on port 12345  (use any other Port here)
+* with shared data volume directory inside the container "/srv/foundry/xfer"
+
 #### Dockerfile for Installation
-Every Container installation starts with a setup. You can start with commands on your terminal or create a Dockerfile for it. I choose the comfortable way to create a Dockerfile, putting all stuff in it and fire it up to run the deployment automatically.
+Every Container installation starts with a setup. You can start with commands on your terminal or like me I've created a Dockerfile for it, putting all stuff in it and fire it up to run the deployment automatically.
+
+#### Monitoring Docker Container Status
+After you run the container you can have a look at the stats with the following command:
+> docker container stats
+> 
+
+#### Now let's create the docker image
+Create your image within the directory where the Dockerfile exists and send any docker output to default output and pipe it to file "build.log"
+It tooks several minutes to download all parts from internet.
+> #docker build -t fvtt-deb10-slim . 1>> build.log
+> 
+
+#### Run the first container
+If all is fine now, run an interactive container in detach mode, with hostname "fvtt" from the image we've created above
+> #docker run -it -d -h fvtt --volume=/opt/fvtt/xfer:/srv/foundry/xfer --publish 12345:30000/tcp --name foundryvtt-server fvtt-deb10-slim /bin/bash -l
+> 
+
+#### Start container
+> #docker container start foundryvtt-server
+> 
+
+#### Connect with container as terminal session in a bash shell
+> #docker exec -it fvtt-slim /bin/bash
+> 
+
+
+### Login your container
+
+Change to User foundry
+> #su - foundry
+> 
+
+Change to home of user foundry
+> #cd /srv/foundry
+> 
+
+Foundry VTT Server is listening on Port 30000 (default), my container will redirect it to port 12345.
+Anyways 
+> #node /srv/foundry/fvtt/resources/app/main.js --dataPath=/srv/foundry/data 1>access.log 2>error.lo &
+
+
+
 
 #### Linux Debian 10 (buster)
 First of all ask yourself if you have enough linux practice experience to create Docker Container deployment for linux debian 10 (buster)
