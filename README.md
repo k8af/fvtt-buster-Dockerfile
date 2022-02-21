@@ -7,7 +7,7 @@ Debian is my favourite linux distribution, so I combined my favs to gain a servi
 ----
 
 ## Project Aims
-The project aim is to provide a basic workflow for a reliable docker container to start FoundryVTT on Debian 10 (slim) docker container. 
+The project aim is to provide a Dockerfile to build your own debian 10 docker image and to start a container for FoundryVTT. 
 
 ## Iterating workflow objects
 | ID | Object | Description |
@@ -17,8 +17,8 @@ The project aim is to provide a basic workflow for a reliable docker container t
 | 2 | Dockerfile - Linux | assemble basic Dockerfile for debian 10 (buster) |
 | 3 | Dockerfile - NodeJs | evaluate methods to automate deployment of latest NodeJs version |
 | 4 | Dockerfile - FoundryVTT | prepare server environment of Foundry Virtual Tabletop server |
-| 5 | Testing Deployment | Get Foundry Virtual Tabletop license|
-| 6 | Testing Application | Get FVTT server instance up and running as Debian 10 (slim) Container |
+| 5 | Testing - Deployment | Get Foundry Virtual Tabletop license|
+| 6 | Testing - Application | Get FVTT server instance up and running as Debian 10 (slim) Container |
 | 7 | Have fun with FVTT and friends | Invite friends and provide access keys to connect to your server.|
 | 8 | SSL/TLS Security | Take a note to connect with TLS certificates using certbot |
 
@@ -179,8 +179,8 @@ Use the files to test, run and improve your Foundry VTT instance for a better vi
 ----
 
 ## Sources
-### foundry vtt wiki
-- If you are new to foundry's virtual multiplayer tabletop check: [Foundry Virtual Tabletop](https://foundryvtt.com/)
+### Foundry VTT Wiki
+- If you are new to foundry's VTT - virtual Tabletop check: [Foundry Virtual Tabletop](https://foundryvtt.com/)
 - Here you can find more about the the latest [Foundry VTT Release](https://foundryvtt.com/releases/9.238)
 - If you know Foundry VTT but you don't know hosting with docker visit: [Hosting with Docker](https://foundryvtt.wiki/en/setup/hosting/Docker)
 
