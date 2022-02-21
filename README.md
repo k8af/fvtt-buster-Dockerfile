@@ -36,9 +36,10 @@ All you need to start is:
 
 ----
 ## Roadmap for Preperations for hosting system
-* Login to your target linux vps host and become root
-* Do some preperations
-* Install docker and docker-compose.
+* Login to your target linux vps host and become root (# symbol)
+* Do some preperations on hosting machine
+* Install docker and docker-ce.
+* Download Dockerfile
 * Create docker image
 * Run docker container
 * Start docker container
@@ -60,6 +61,27 @@ If you need more software on your hosting system, add some more sources to your 
 > 
 > #echo 'deb-src http://security.debian.org/debian-security buster/updates main contrib non-free' >> /etc/apt/sources.list
 > 
+
+### Install docker on hosting machine
+You need to do some steps before you can install docker-ce.
+> #apt update
+> 
+> #apt install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+> 
+> #curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+> 
+> #add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+> 
+> #apt update
+> 
+> #apt-cache policy docker-ce
+> 
+> #apt install docker-ce
+
+### Check that docker daemon is running
+> #systemctl status docker
+> 
+
 
 ### Install some tools
 Install some packages if you need more, add some more tools.
