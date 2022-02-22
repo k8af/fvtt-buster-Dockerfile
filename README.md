@@ -18,7 +18,7 @@ The project aim is to provide a Dockerfile to build your own debian 10 docker im
 | 3 | Dockerfile - NodeJs | evaluate methods to automate deployment of latest NodeJs version |
 | 4 | Dockerfile - FoundryVTT | prepare server environment of Foundry Virtual Tabletop server |
 | 5 | Testing - Deployment | Get Foundry Virtual Tabletop license|
-| 6 | Testing - Application | Get FVTT server instance up and running as Debian 10 (slim) Container |
+| 6 | Testing - Application | Get FVTT up and running as Docker Container |
 | 7 | Have fun with FVTT and friends | Invite friends and provide access keys to connect to your server.|
 | 8 | SSL/TLS Security | Take a note to connect with TLS certificates using certbot |
 
