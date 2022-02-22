@@ -104,23 +104,12 @@ Create your docker mount point as volume transfer directory as you wish (/opt/fv
 > 
 
 ### Syncronize foundry vtt files to host machine
-I've downloaded fvtt files outside my linux host system and created an read only shared folder for my virtual machine.
-So actually my source folder is "/WinShared/Linux\ Server/FoundryVTT-9-2/" and my target /opt/fvtt/xfer.
-I've used rsync to syncronize as update while safing all origin permissions to my "/opt/fvtt/xfer" transfer directory on my host machine.
+I've downloaded fvtt files outside my linux host system and created a read only shared folder for my virtual box machine (also debian 10).
+My source folder was "/WinShared/Linux\ Server/FoundryVTT-9-2/" and my target /opt/fvtt/xfer.
+Logged into my virtual machine I've used rsync to syncronize fvtt files to my "/opt/fvtt/xfer" with update options, permissions and delete old or redundancy target files on my host machine. (Change folders if you need)
 
 > #rsync -h --progress --stats -r -tgo -p -l -D -S --update /WinShared/Linux\ Server/FoundryVTT-9-2/ /opt/fvtt/xfer ; chown -R foundry. /opt/fvtt/xfer/ ; find '/opt/fvtt/xfer/' -perm -2  -type f  -exec chmod o-w {} \; ;chmod 760 /opt/fvtt/xfer/ ; ls -rtla /opt/fvtt/xfer/
 
-
-----
-### Firewall Rules
-We use to open just that ports on our host machine if you need more you can change the commands below
-```
-sudo ufw allow 22
-sudo ufw allow 12345
-sudo ufw allow 443
-sudo ufw enable
-```
-----
 
 ### Container Setup
 
@@ -177,8 +166,18 @@ Hint: You also can try out the shell script "container_manager.sh" to start, sto
 
 ----
 
+### Simple Firewall Rules
+We use to open just that ports on our host machine if you need more you can change the commands below
+```
+sudo ufw allow 22
+sudo ufw allow 12345
+sudo ufw allow 443
+sudo ufw enable
+```
+----
+
 #### Port Forwarding
-Foundry VTT Server is listening on Port 30000 (default), my container will redirect it to my hosting port 12345.
+Foundry VTT Server is listening on Port 30000 by default, my container will redirect it to my hosting port 12345.
 At this point it depends on your firewall configurations to open your container port to public access.
 
 Take a minute to think about your port forwardings.
@@ -187,7 +186,7 @@ Take a minute to think about your port forwardings.
 > 
 
 #### SSL/TLS Security
-If you want to use SSLT/TLS security on your vps machine, I recommend to use [certbot](https://certbot.eff.org/instructions?ws=other&os=debianbuster).
+If you want to use SSL/TLS security on your vps machine, I recommend to use [certbot](https://certbot.eff.org/instructions?ws=other&os=debianbuster).
 Follow the instructions to install and run certbot on your vps hosting machine without a webserver.
 
 ----
@@ -195,7 +194,7 @@ Follow the instructions to install and run certbot on your vps hosting machine w
 ### Maintaining the project
 Feel free to download my docker file and improve the container performance or implement new security features.
 Use the files to test, run and improve your Foundry VTT instance for a better virtual tabletop experience.
-* Please comment or send me a feedback via git email.
+* Please comment or send me a feedback on my git account.
 * next devop stage is to use ansible playbook
 
 ----
