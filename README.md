@@ -83,15 +83,16 @@ You need to do some steps before you can install docker-ce.
 > 
 
 
-### Install some tools
+### Install some usefull tools
 Install some packages if you need more, add some more tools.
+We don't need to install any manpages on the vps.
 > #apt install apt-transport-https ca-certificates curl software-properties-common
 > 
 > #apt update && apt upgrade
 > 
-> #apt install docker-ce docker-ce-cli apt-file
+> #apt install docker-ce-cli apt-file
 > 
-> #apt install iproute2 inetutils-ping dns-utils iptables free man
+> #apt install iproute2 inetutils-ping dns-utils iptables free atop
 > 
 
 ### Project directory
@@ -151,7 +152,7 @@ If all is fine now, run an interactive container in detach mode, with exchange v
 > 
 
 #### Monitoring Docker Container Status
-After you run the container you can have a look at the stats with the following command:
+After you run the container you can have a look at the stats in a seperate terminal with the following command:
 > docker container stats
 > 
 
@@ -171,6 +172,10 @@ Change to User foundry
 #### Start Foundry VTT 
 > #node /srv/foundry/fvtt/resources/app/main.js --dataPath=/srv/foundry/data 1>>access.log 2>>error.log &
 > 
+---
+### HINT
+You also can try out the shell script "container_manager.sh" to start, stop and login to your container.
+---
 
 #### Port Forwarding
 Foundry VTT Server is listening on Port 30000 (default), my container will redirect it to my hosting port 12345.
@@ -179,13 +184,12 @@ At this point it depends on your firewall configurations to open your container 
 Take a minute to think about your port forwardings.
 
 ´´´
-Foundry-VTT (30000) --> local vps host container (12345)
-local vps host container (12345) --> VPS Provider Firewall --> Public Access
+Foundry-VTT (30000) <--> Container Port (12345) <--> VPS Provider Firewall Forwarding <--> Public Access
 
 ´´´
 
 #### SSL/TLS Security
-If you want to use tls security on your vps machine, I recommend to use [certbot](https://certbot.eff.org/instructions?ws=other&os=debianbuster).
+If you want to use SSLT/TLS security on your vps machine, I recommend to use [certbot](https://certbot.eff.org/instructions?ws=other&os=debianbuster).
 Follow the instructions to install and run certbot on your vps hosting machine without a webserver.
 
 ---
