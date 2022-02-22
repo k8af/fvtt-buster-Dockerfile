@@ -98,7 +98,7 @@ Create your project directory on the host machine (/opt/fvtt)
 > #mkdir /opt/fvtt
 > 
 
-### Docker Volumes & file exchange
+### Docker Volumes & file exchange for our container volumes
 Create your docker mount point as volume transfer directory as you wish (/opt/fvtt/xfer)
 > #mkdir /opt/fvtt/xfer
 > 
@@ -108,28 +108,42 @@ I've downloaded fvtt files outside my linux host system and created a read only 
 My source folder was "/WinShared/Linux\ Server/FoundryVTT-9-2/" and my target /opt/fvtt/xfer.
 Logged into my virtual machine I've used rsync to syncronize fvtt files to my "/opt/fvtt/xfer" with update options, permissions and delete old or redundancy target files on my host machine. (Change folders if you need)
 
-> #rsync -h --progress --stats -r -tgo -p -l -D -S --update /WinShared/Linux\ Server/FoundryVTT-9-2/ /opt/fvtt/xfer ; chown -R foundry. /opt/fvtt/xfer/ ; find '/opt/fvtt/xfer/' -perm -2  -type f  -exec chmod o-w {} \; ;chmod 760 /opt/fvtt/xfer/ ; ls -rtla /opt/fvtt/xfer/
+> #rsync -h --progress --stats -r -tgo -p -l -D -S --update /WinShared/Linux\ Server/FoundryVTT-9-2/ /opt/fvtt/xfer ; 
+> 
 
+### Create User foundry with project folder as home and unlimited elapse time (Dockerfile)
+> #useradd -d /opt/fvtt -K PASS_MAX_DAYS=-1 foundry
+> 
 
-### Container Setup
+### Recursively change owner of our project folder
+> #chown -R foundry. /opt/fvtt/
+> 
+
+### Recursively change Permissions
+> find '/opt/fvtt/xfer/' -perm -2  -type f  -exec chmod o-w {} \; ;chmod 760 /opt/fvtt/xfer/ ;
+> 
+
+----
+
+### Dockerfile Image & Container Setup
 
 #### Download Dockerfile
-* Change to your project directory and download or clone from github [repository files](https://github.com/k8af/fvtt-buster-Dockerfile).
-* Change some system config details in your *Dockerfile* (Host port i.e.)
-* Docker container is listening on port 12345  (use any other Port here)
-* with shared data volume directory inside the container "/srv/foundry/xfer"
+* Change to project directory and download or clone my files from github [repository files](https://github.com/k8af/fvtt-buster-Dockerfile).
+* Change some system config details in the *Dockerfile* as you wish (hostnames, ports i.e.)
+* Docker container is listening on port 12345 (any Port)
+* We share container volume "/srv/foundry/xfer" with our host folder "/opt/fvtt/xfer"
 
 #### Dockerfile for Installation
 Every Container installation starts with a setup. You can start with commands on your terminal or like me I've created a Dockerfile for it, putting all stuff in it and fire it up to run the deployment automatically.
 
 #### Now let's create the docker image
-Create your image within the directory where the Dockerfile exists and send any docker output to default output and pipe it to file "build.log"
-It tooks several minutes to download all parts from internet.
-> #docker build -t fvtt-deb10-slim . 1>> build.log
+Create your image within the directory where the Dockerfile exists and send any docker output to default output file "build.log"
+It tooks several minutes to download all parts from internet. (depends on your inet connection)
+> #docker build -t fvtt-deb10-slim . 1> build.log
 > 
 
-#### Run the first container
-Considering the docker volumes specification, we will share a directory on the hosting machine within our new container.
+#### Run a container in the background
+Considering the docker volumes specification, we will share our "/opt/fvtt/xfer/" directory with our new container volume "/srv/foundry/xfer".
 If all is fine now, run an interactive container in detach mode, with exchange volumes and with hostname "fvtt" from the image we've created above
 > #docker run -it -d -h fvtt --volume=/opt/fvtt/xfer:/srv/foundry/xfer --publish 12345:30000/tcp --name foundryvtt-server fvtt-deb10-slim /bin/bash -l
 > 
@@ -162,7 +176,7 @@ Change to User foundry
 
 ----
 
-Hint: You also can try out the shell script "container_manager.sh" to start, stop and login to your container.
+Hint: You also can try out my simple shell script "container_manager.sh" to run, start, stop and login to your container.
 
 ----
 
