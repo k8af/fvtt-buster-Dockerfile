@@ -90,9 +90,7 @@ We don't need to install any manpages on the vps.
 > 
 > #apt update && apt upgrade
 > 
-> #apt install docker-ce-cli apt-file
-> 
-> #apt install iproute2 inetutils-ping dns-utils iptables free atop
+> #apt install apt-file iproute2 inetutils-ping dns-utils free atop tree net-tools ufw
 > 
 
 ### Project directory
