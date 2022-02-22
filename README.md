@@ -172,10 +172,12 @@ Change to User foundry
 #### Start Foundry VTT 
 > #node /srv/foundry/fvtt/resources/app/main.js --dataPath=/srv/foundry/data 1>>access.log 2>>error.log &
 > 
----
-### HINT
-You also can try out the shell script "container_manager.sh" to start, stop and login to your container.
----
+
+----
+
+Hint: You also can try out the shell script "container_manager.sh" to start, stop and login to your container.
+
+----
 
 #### Port Forwarding
 Foundry VTT Server is listening on Port 30000 (default), my container will redirect it to my hosting port 12345.
@@ -183,23 +185,20 @@ At this point it depends on your firewall configurations to open your container 
 
 Take a minute to think about your port forwardings.
 
-´´´
-Foundry-VTT (30000) <--> Container Port (12345) <--> VPS Provider Firewall Forwarding <--> Public Access
-
-´´´
+> Foundry-VTT (30000) <--> Container Port (12345) <--> VPS Provider Firewall Forwarding <--> Public Access
+> 
 
 #### SSL/TLS Security
 If you want to use SSLT/TLS security on your vps machine, I recommend to use [certbot](https://certbot.eff.org/instructions?ws=other&os=debianbuster).
 Follow the instructions to install and run certbot on your vps hosting machine without a webserver.
 
----
+----
 
 ### Maintaining the project
 Feel free to download my docker file and improve the container performance or implement new security features.
 Use the files to test, run and improve your Foundry VTT instance for a better virtual tabletop experience.
 * Please comment or send me a feedback via git email.
 * next devop stage is to use ansible playbook
-
 
 ----
 
