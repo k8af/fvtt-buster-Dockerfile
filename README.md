@@ -82,7 +82,6 @@ You need to do some steps before you can install docker-ce.
 > #systemctl status docker
 > 
 
-
 ### Install some usefull tools
 Install some packages if you need more, add some more tools.
 We don't need to install any manpages on the vps.
@@ -98,9 +97,25 @@ Create your project directory on the host machine (/opt/fvtt)
 > #mkdir /opt/fvtt
 > 
 
-### Docker Volumes & file exchange for our container volumes
+### Docker Volume - file exchange for our container
 Create your project folder on host machine to work with docker volume and provide files to sync between them (/srv/foundry/xfer)
 > #mkdir /opt/fvtt/xfer
+> 
+
+### Create user foundry with unlimited elapse time (Dockerfile)
+> #useradd -K PASS_MAX_DAYS=-1 foundry
+> 
+
+### Create group fvtt
+> #groupadd fvtt
+> 
+
+### Add user foundry to group fvtt
+> usermod -a -G fvtt foundry
+> 
+
+### Recursively change owner with permissions of our project folder
+> #chown -R foundry:fvtt /opt/fvtt/
 > 
 
 ### Syncronize foundry vtt files to host machine
@@ -109,14 +124,6 @@ My source folder was "/WinShared/Linux\ Server/FoundryVTT-9-2/" and my target /o
 Logged into my virtual machine I've used rsync to syncronize fvtt files to my "/opt/fvtt/xfer" with update options, permissions and delete old or redundancy target files on my host machine. (Change folders if you need)
 
 > #rsync -h --progress --stats -r -tgo -p -l -S --update /WinShared/Linux\ Server/FoundryVTT-9-2/ /opt/fvtt/xfer ; 
-> 
-
-### Create User foundry with project folder as home and unlimited elapse time (Dockerfile)
-> #useradd -d /opt/fvtt -K PASS_MAX_DAYS=-1 foundry
-> 
-
-### Recursively change owner of our project folder
-> #chown -R foundry. /opt/fvtt/
 > 
 
 ### Recursively change Permissions
