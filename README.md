@@ -99,7 +99,7 @@ Create your project directory on the host machine (/opt/fvtt)
 > 
 
 ### Docker Volumes & file exchange for our container volumes
-Create your docker mount point as volume transfer directory as you wish (/opt/fvtt/xfer)
+Create your project folder on host machine to work with docker volume and provide files to sync between them (/srv/foundry/xfer)
 > #mkdir /opt/fvtt/xfer
 > 
 
@@ -108,7 +108,7 @@ I've downloaded fvtt files outside my linux host system and created a read only 
 My source folder was "/WinShared/Linux\ Server/FoundryVTT-9-2/" and my target /opt/fvtt/xfer.
 Logged into my virtual machine I've used rsync to syncronize fvtt files to my "/opt/fvtt/xfer" with update options, permissions and delete old or redundancy target files on my host machine. (Change folders if you need)
 
-> #rsync -h --progress --stats -r -tgo -p -l -D -S --update /WinShared/Linux\ Server/FoundryVTT-9-2/ /opt/fvtt/xfer ; 
+> #rsync -h --progress --stats -r -tgo -p -l -S --update /WinShared/Linux\ Server/FoundryVTT-9-2/ /opt/fvtt/xfer ; 
 > 
 
 ### Create User foundry with project folder as home and unlimited elapse time (Dockerfile)
