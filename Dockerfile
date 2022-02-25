@@ -75,7 +75,7 @@ RUN sleep 2
 COPY "${FOUNDRY_HOST_IMPORT}" "${FOUNDRY_TEMP}"
 
 # Update Foundry with latest HOST_IMPORT
-RUN rsync -h --progress --stats -r -tgo -p -l -D -S --update "${FOUNDRY_TEMP}" .
+RUN rsync -h --progress --stats -r -tgo -p -l -S --update "${FOUNDRY_TEMP}" .
 RUN chown -R foundry. /srv/foundry/
 
 EXPOSE "${FVTTPORT}"
