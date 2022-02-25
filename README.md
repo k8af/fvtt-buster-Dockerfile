@@ -173,10 +173,6 @@ Change to User foundry
 > #su - foundry
 > 
 
-#### Change to home of user foundry
-> #cd /srv/foundry
-> 
-
 #### Start Foundry VTT 
 > #node /srv/foundry/fvtt/resources/app/main.js --dataPath=/srv/foundry/data 1>>access.log 2>>error.log &
 > 
