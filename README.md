@@ -62,6 +62,8 @@ If you need more software on your hosting system, add some more sources to your 
 > #echo 'deb-src http://security.debian.org/debian-security buster/updates main contrib non-free' >> /etc/apt/sources.list
 > 
 
+---
+
 ### Install docker on hosting machine
 You need to do some steps before you can install docker-ce.
 > #apt update
@@ -78,6 +80,8 @@ You need to do some steps before you can install docker-ce.
 > 
 > #apt install docker-ce
 
+---
+
 ### Check that docker daemon is running
 > #systemctl status docker
 > 
@@ -92,12 +96,14 @@ We don't need to install any manpages on the vps.
 > #apt install apt-file iproute2 inetutils-ping dns-utils free atop tree net-tools ufw
 > 
 
-### Project directory
+---
+## Environmental Preperations
+### Project directory 
 Create your project directory on the host machine (/opt/fvtt)
 > #mkdir /opt/fvtt
 > 
 
-### Docker Volume - file exchange for our container
+### Docker Volume - file exchange for our container updates
 Create your project folder on host machine to work with docker volume and provide files to sync between them (/srv/foundry/xfer)
 > #mkdir /opt/fvtt/xfer
 > 
@@ -118,13 +124,17 @@ Create your project folder on host machine to work with docker volume and provid
 > #chown -R foundry:fvtt /opt/fvtt/
 > 
 
-### Syncronize foundry vtt files to host machine
-I've downloaded fvtt files outside my linux host system and created a read only shared folder for my virtual box machine (also debian 10).
+## Foundry VTT App and Data Update Workflow 
+### Syncronize foundry vtt files to our host machine
+I've downloaded fvtt files outside my linux host and created a read only shared folder for my virtual box machine (also debian 10).
 My source folder was "/WinShared/Linux\ Server/FoundryVTT-9-2/" and my target /opt/fvtt/xfer.
-Logged into my virtual machine I've used rsync to syncronize fvtt files to my "/opt/fvtt/xfer" with update options, permissions on my host machine. (Change folders if you need)
+Logged into my virtual machine I've used rsync to syncronize my fvtt files to "/opt/fvtt/xfer" with update options, permissions safed on my host machine. (Change folders if you need)
+
+* Find some examples of rsync options at [geeksforgeeks](https://www.geeksforgeeks.org/rsync-command-in-linux-with-examples/)
 
 > #rsync -h --progress --stats -r -tgo -p -l -S --update /WinShared/Linux\ Server/FoundryVTT-9-2/ /opt/fvtt/xfer ; 
 > 
+
 
 ### Recursively change Permissions
 > find '/opt/fvtt/xfer/' -perm -2  -type f  -exec chmod o-w {} \; ;chmod 760 /opt/fvtt/xfer/ ;
