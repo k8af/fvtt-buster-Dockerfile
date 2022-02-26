@@ -137,23 +137,23 @@ Logged into my virtual machine I've used rsync to syncronize fvtt files to my "/
 #### Download Dockerfile
 * Change to project directory and download or clone my files from github [repository files](https://github.com/k8af/fvtt-buster-Dockerfile).
 * Change some system config details in the *Dockerfile* as you wish (hostnames, ports i.e.)
-* Docker container is listening on port 12345 (any Port)
+* Docker container is listening on port 12345 (use any Port)
 * We share container volume "/srv/foundry/xfer" with our host folder "/opt/fvtt/xfer"
 
-#### Dockerfile Download for Installation
-Every Container installation starts with a setup. You can start with commands on your terminal or like me I've created a Dockerfile for it, putting all stuff in it and fire it up to run the deployment automatically. Now download the Dockerfile from github.
 > wget https://github.com/k8af/fvtt-buster-Dockerfile/edit/main/Dockerfile
 > 
 
 #### Now let's create the docker image
-Create your image within the directory where the Dockerfile exists and send any docker output to default output file "build.log"
-It tooks several minutes to download all parts from internet. (depends on your inet connection)
+* We create the docker image within the directory where the *Dockerfile* exists 
+* Send any docker output to standard output it into a file called "build.log"
+* It tooks several minutes to download all parts from internet. (depends on your inet connection)
+
 > #docker build -t fvtt-deb10-slim . 1> build.log
 > 
 
 #### Run a container in the background
 Considering the docker volumes specification, we will share our "/opt/fvtt/xfer/" directory with our new container volume "/srv/foundry/xfer".
-If all is fine now, run an interactive container in detach mode, with exchange volumes and with hostname "fvtt" from the image we've created above
+If all is fine now, run an interactive container in detach mode, with volumes and with hostname "fvtt" from the image we've created above
 > #docker run -it -d -h fvtt --volume=/opt/fvtt/xfer:/srv/foundry/xfer --publish 12345:30000/tcp --name foundryvtt-server fvtt-deb10-slim /bin/bash -l
 > 
 
@@ -161,8 +161,12 @@ If all is fine now, run an interactive container in detach mode, with exchange v
 > #docker container start foundryvtt-server
 > 
 
+#### Stop container
+> #docker container stop foundryvtt-server
+> 
+
 #### Monitoring Docker Container Status
-After you run the container you can have a look at the stats in a seperate terminal with the following command:
+After you run the container, have a look at the container stats of your host in a seperate terminal with the following command:
 > docker container stats
 > 
 
