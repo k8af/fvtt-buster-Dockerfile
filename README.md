@@ -190,7 +190,8 @@ Change to User foundry
 > 
 
 #### Start Foundry VTT 
-> #node /srv/foundry/fvtt/resources/app/main.js --dataPath=/srv/foundry/data 1>>access.log 2>>error.log &
+Start Foundry VTT with logfile options in background
+> #node /srv/foundry/fvtt/resources/app/main.js --dataPath=/srv/foundry/data 1>>log/access.log 2>>log/error.log &
 > 
 
 ----
