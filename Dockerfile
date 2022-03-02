@@ -23,8 +23,9 @@ RUN echo 'deb-src http://security.debian.org/debian-security buster/updates main
 
 # Create the foundry install home
 RUN mkdir -p /srv/foundry/fvtt
-RUN mkdir -p /srv/foundry/data
-RUN mkdir -p /srv/foundry/xfer
+RUN mkdir /srv/foundry/data
+RUN mkdir /srv/foundry/xfer
+RUN mkdir /srv/foundry/log
 
 # Create user with install home and unlimited expiring password
 RUN useradd -d /srv/foundry -K PASS_MAX_DAYS=-1 foundry
