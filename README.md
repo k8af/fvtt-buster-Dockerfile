@@ -164,7 +164,7 @@ Logged into my virtual machine I've used rsync to syncronize my fvtt files to "/
 #### Run a container in the background
 Considering the docker volumes specification, we will share our "/opt/fvtt/xfer/" directory with our new container volume "/srv/foundry/xfer".
 If all is fine now, run an interactive container in detach mode, with volumes and with hostname "fvtt" from the image we've created above
-> #docker run -it -d -h fvtt --volume=/opt/fvtt/xfer:/srv/foundry/xfer --publish 12345:30000/tcp --name foundryvtt-server fvtt-deb10-slim /bin/bash -l
+> #docker run -itd -h fvtt --volume=/opt/fvtt/xfer:/srv/foundry/xfer --publish 12345:30000/tcp --name foundryvtt-server fvtt-deb10-slim /bin/bash -l
 > 
 
 #### Start container
