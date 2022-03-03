@@ -135,7 +135,6 @@ Logged into my virtual machine I've used rsync to syncronize my fvtt files to "/
 > #rsync -h --progress --stats -r -tgo -p -l -S --update /WinShared/Linux\ Server/FoundryVTT-9-2/ /opt/fvtt/xfer ; 
 > 
 
-
 ### Recursively change Permissions
 > find '/opt/fvtt/xfer/' -perm -2  -type f  -exec chmod o-w {} \; ;chmod 760 /opt/fvtt/xfer/ ;
 > 
@@ -161,13 +160,13 @@ Logged into my virtual machine I've used rsync to syncronize my fvtt files to "/
 > #docker build -t fvtt-deb10-slim . 1> build.log
 > 
 
-#### Run a container in the background
+#### Run or start a container in the background
 Considering the docker volumes specification, we will share our "/opt/fvtt/xfer/" directory with our new container volume "/srv/foundry/xfer".
 If all is fine now, run an interactive container in detach mode, with volumes and with hostname "fvtt" from the image we've created above
-> #docker run -itd -h fvtt --volume=/opt/fvtt/xfer:/srv/foundry/xfer --publish 12345:30000/tcp --name foundryvtt-server fvtt-deb10-slim /bin/bash -l
+> #docker run -itd -h fvtt --volume=/opt/fvtt/xfer:/srv/foundry/xfer --publish 12345:30000/tcp --name foundryvtt-server fvtt-deb10-slim
 > 
 
-#### Start container
+#### Start container manually
 > #docker container start foundryvtt-server
 > 
 
