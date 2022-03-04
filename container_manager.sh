@@ -19,6 +19,11 @@ echo "2022 - Version 1.1"
 echo "by k8af"
 echo " "
 
+# Running a forever loop using while statement
+# This loop will run untill select the exit option.
+# User will be asked to select option again and again
+while :
+
 # creating a menu with the following options
 echo " "
 echo "SELECT YOUR NEXT STEPS";
@@ -31,10 +36,6 @@ echo "5 - Delete all stoppped container"
 echo "6 - exit programm"
 echo ""
 
-# Running a forever loop using while statement
-# This loop will run untill select the exit option.
-# User will be asked to select option again and again
-while :
 do
 # reading choice
 read choice
