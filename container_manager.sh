@@ -43,7 +43,7 @@ read choice
 case $choice in
   1)  echo "You have selected the option 1"
       echo "...Running Container in detach mode, waiting to start."
-        docker run -d -h fvtt --volume=/opt/fvtt/xfer:/srv/foundry/xfer --publish 12345:30000/tcp --name foundryvtt-server fvtt-deb10-slim
+        docker run -itd -h fvtt --volume=/opt/fvtt/xfer:/srv/foundry/xfer --publish 12345:30000/tcp --name foundryvtt-server fvtt-deb10-slim
       ;;
   2)  echo "You have selected the option 2"
       echo "...Container is starting now."
