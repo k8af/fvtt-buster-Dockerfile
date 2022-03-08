@@ -83,7 +83,8 @@ COPY "${FOUNDRY_HOST_IMPORT}" "${FOUNDRY_TEMP}"
 RUN rsync -h --progress --stats -r -tgo -p -l -S --update "${FOUNDRY_TEMP}" .
 RUN chown -R foundry. /srv/foundry/
 
-EXPOSE "${FVTTPORT}"
+# uncomment if you want to open this container to public
+#EXPOSE "${FVTTPORT}"
 
 # Lets have a look on our workdir
 RUN tree -v -L 1 .
