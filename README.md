@@ -156,14 +156,16 @@ Logged into my virtual machine I've used rsync to syncronize my fvtt files to "/
 * Send any docker output to standard output it into a file called "build.log"
 * It tooks several minutes to download all parts from internet. (depends on your inet connection)
 
-> #docker build -t fvtt-deb10-slim . 1> build.log
+> #docker build -t fvtt-deb10-slim . 1>build_status.log 2>build_error.log
 > 
 
-#### Run or start a container in the background
+#### Run and start container in the background (access by published port 12345)
 Considering the docker volumes specification, we will share our "/opt/fvtt/xfer/" directory with our new container volume "/srv/foundry/xfer".
-If all is fine now, run an interactive container in detach mode, with volumes and with hostname "fvtt" from the image we've created above
-> #docker run -itd -h fvtt --volume=/opt/fvtt/xfer:/srv/foundry/xfer --publish 12345:30000/tcp --name foundryvtt-server fvtt-deb10-slim
-> 
+If all is fine now, run an interactive container in detach mode, with volumes, network and with hostname "fvtt" from the image we've created above
+> #docker run -itd -h fvtt **-p 12345:30000** --ip=172.23.3.2 --volume=/opt/fvtt/xfer:/srv/foundry/xfer --name foundryvtt-server --network=fvtt-net --add-host=fvtt:172.23.3.2 --add-host=rproxy:172.23.3.1 fvtt-deb10-slim
+
+#### Run and start container in the background without published ports (access by proxy container through exposed port 30000)
+> #docker run -itd -h fvtt --ip=172.23.3.2 --volume=/opt/fvtt/xfer:/srv/foundry/xfer --name foundryvtt-server --network=fvtt-net --add-host=fvtt:172.23.3.2 --add-host=rproxy:172.23.3.1 fvtt-deb10-slim
 
 #### Start container manually
 > #docker container start foundryvtt-server
@@ -188,13 +190,13 @@ Change to User foundry
 > 
 
 #### Start Foundry VTT 
-Start Foundry VTT with logfile options in background
+Start Foundry VTT with logfile options and put it in the background
 > #node /srv/foundry/fvtt/resources/app/main.js --dataPath=/srv/foundry/data 1>>log/access.log 2>>log/error.log &
 > 
 
 ----
 
-Hint: You also can try out my simple shell script "container_manager.sh" to run, start, stop and login to your container.
+Hint: You also can try out my simple shell script "[Container-Manager](https://github.com/k8af/container_manager.sh)" to run, start, stop and login to your container.
 
 ----
 
