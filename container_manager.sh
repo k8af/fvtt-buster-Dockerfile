@@ -111,29 +111,30 @@ case $choice in
             esac
             ;;
 
-				3)  echo -n "Now deleting all stopped containers."
-				    echo -n "Are you sure ?"
-				    echo "--------------------"
-				    echo "1 - Yes - Deleting all stopped containers."
-				    echo -n "2 - No - Let's leave this place."
-            echo -n "Enter your menu choice [0 - 2]: "
+				3)  echo " "
+            echo "Delete all stopped containers."
+				    echo "Are you sure ?"
+				    echo " "
+				    echo "1 - Yes - Delete all my stopped docker containers."
+				    echo "2 - No - Exit to main menue."
+            echo " "
+            echo "Enter your menu choice [1 - 2]: "
 				    read stopdel
 						case $stopdel in
 							
 				       	1)	echo "...deleting all stopped Container now!"
 				            sleep 3
-				             echo -n "at that point, all stopped container will be pruned."
+				             echo -n "WARNING - All stopped containers will be pruned."
 				             docker container prune
 				             sleep 2
 				             		clear
 				             ;;
 				        2)	echo "OK, leaving ... "
-				            echo -n "Going back to main menue."
-				            sleep 1
+				            sleep 2
 				            clear
 				            ;;
 				        *)	echo "invalid option"
-				            sleep 1
+				            sleep 2
 				            clear
 				            ;;
 				    esac
